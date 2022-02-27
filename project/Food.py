@@ -10,6 +10,9 @@ class Food():
         self.maxspeed = 1.0
         self.maxforce = 0.01
         
+    def getPosition(self):
+        return self.position
+    
     def star(self):
         radius1 = self.r * 1.3
         radius2 = self.r * 0.6

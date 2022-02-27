@@ -3,7 +3,6 @@
 # http://natureofcode.com
 
 # The "Vehicle" class
-
 class Vehicle():
 
     def __init__(self, x, y, vel):
@@ -54,9 +53,27 @@ class Vehicle():
             vertex(self.r, self.r * 2)
             endShape(CLOSE)
             
+    def arrive(self, target):
+
+        # A vector pointing from the location to the target
+        desired = target - self.position
+        d = desired.mag()
+
+        # Scale with arbitrary damping within 100 pixels
+        if (d < 100):
+            m = map(d, 0, 100, 0, self.maxspeed)
+            desired.setMag(m)
+        else:
+            desired.setMag(self.maxspeed)
+
+        # Steering = Desired minus velocity
+        steer = desired - self.velocity
+        steer.limit(self.maxforce)  # Limit to maximum steering force
+
+        self.applyForce(steer)
+        
     def chase(self, food):
-        pos = food.position - self.position #get position vector
+        pos = food - self.position #get position vector
         dir = pos - self.velocity #get direction to apply force to
         self.applyForce(dir)
-    
     
