@@ -5,10 +5,10 @@
 # The "Vehicle" class
 class Vehicle():
 
-    def __init__(self, x, y, vel):
+    def __init__(self, pos, vel):
         self.acceleration = PVector(0, 0)
         self.velocity = vel
-        self.position = PVector(x, y)
+        self.position = pos
         self.r = 6
         self.maxspeed = 5
         self.maxforce = 1
@@ -76,4 +76,5 @@ class Vehicle():
         pos = food - self.position #get position vector
         dir = pos - self.velocity #get direction to apply force to
         self.applyForce(dir)
+    
     

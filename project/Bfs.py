@@ -3,7 +3,7 @@ from Terrain import Terrain
 class Bfs():
     
     def __init__(self, initialPos, endPos, terreno):
-        self.initialPos = initialPos #PVector
+        self.initialPos = PVector.div(initialPos, 10) #PVector
         self.endPos = endPos #PVector
         self.terreno = terreno 
         
@@ -19,13 +19,16 @@ class Bfs():
             if current == self.endPos:
                 break
             for next in self.terreno.getNeighbors(int(current.x), int(current.y)):
-                if(self.terreno.getColor(next.x, next.y)[0]!=0):
+                if(self.terreno.matrixL[int(next.x)][int(next.y)]!=0):
                 #next = next.mult(10)
                     if next not in came_from:
                         frontier.put(next)
                         came_from[next] = current
                     #n+=1
-            came_from[self.endPos] = self.endPos.div(10)
+            for path in list(frontier.queue):
+                fill(0, 255, 255, 0.5)
+                rect(path.x * 10, path.y * 10, 10, 10)
+            #came_from[self.endPos] = self.endPos.div(10)
         
-        return frontier
+        return came_from
     
