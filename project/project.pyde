@@ -54,13 +54,16 @@ def draw():
     elif currentState == 1:    
         finalPos = PVector(floor(food.position[0]/10), floor(food.position[1]/10))
         initPos = PVector(floor(vehicle.position[0]/10), floor(vehicle.position[1]/10))
+        print(finalPos)
         try:
             current = path[finalPos]
+            
+            pathi.append(finalPos * 10)
             while current != initPos and current != None:
-                #print(food.position, vehicle.position)
                 pathi.append(current * 10)
                 current = path[current]
             currentState = 2
+            print(pathi)
         except:
             print(finalPos)
             currentState=2
@@ -71,13 +74,13 @@ def draw():
         if len(pathi) != 0:
             going = pathi[len(pathi)-1]
             vehicle.chase(PVector(going.x + 5, going.y + 5))
-            #print(vehicle.position.dist(going))
-            if vehicle.position == PVector(going.x+5, going.y + 5):
+            if vehicle.position == PVector(going.x + 5, going.y + 5):
                 pathi.pop()
             
         if food.position.dist(vehicle.position) < sqrt(50):
             food.update(getNonObstacle(terreno.matrixL, width, height))
             vehicle.velocity = PVector(0, 0)
+            pathi = []
             counter += 1
             currentState = 0
         #print('c')
