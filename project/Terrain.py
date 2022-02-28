@@ -42,8 +42,6 @@ class Terrain():
         x = int(position.x / 10)
         y = int(position.y / 10)
         
-        print(x,y)
-        
         if self.matrixL[x][y] == 0:
             return False
         
