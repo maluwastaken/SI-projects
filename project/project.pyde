@@ -16,7 +16,7 @@ from random import randint
 def getNonObstacle(mat, w, h):
     pos = [randint(0, w), randint(0, h)]
     
-    while mat[int(pos[0]/10)][int(pos[1]/10)] == 0:
+    while mat[int(floor(pos[0]/10))][int(floor(pos[1]/10))] == 0:
         pos = [randint(0, w), randint(0, h)]
         
     return PVector(pos[0], pos[1])
@@ -33,8 +33,8 @@ def setup():
     printer = createFont("Arial", 72, True)
     velocity_v = PVector(0, 0)
     velocity_f = PVector(0, 0)
-    vPos = getNonObstacle(terreno.matrixL, width, height)
-    fPos = getNonObstacle(terreno.matrixL, width, height)
+    vPos = getNonObstacle(terreno.matrixL, width-10, height-10)
+    fPos = getNonObstacle(terreno.matrixL, width-10, height-10)
     vehicle = Vehicle(vPos, velocity_v)
     food = Food(fPos, velocity_f)
     #noLoop()
@@ -52,17 +52,18 @@ def draw():
         currentState = 1
         print('a')
     elif currentState == 1:    
-        finalPos = PVector(round(food.position[0]/10), round(food.position[1]/10))
-        initPos = PVector(round(vehicle.position[0]/10), round(vehicle.position[1]/10))
-        #try:
-        current = path[finalPos]
-        #except:
-        #    pass
-        while current != initPos and current != None:
-            print(food.position, vehicle.position)
-            pathi.append(current * 10)
-            current = path[current]
-        currentState = 2
+        finalPos = PVector(floor(food.position[0]/10), floor(food.position[1]/10))
+        initPos = PVector(floor(vehicle.position[0]/10), floor(vehicle.position[1]/10))
+        try:
+            current = path[finalPos]
+            while current != initPos and current != None:
+                #print(food.position, vehicle.position)
+                pathi.append(current * 10)
+                current = path[current]
+            currentState = 2
+        except:
+            print(finalPos)
+            currentState=2
     elif currentState == 2:
         for pat in pathi:
             fill(0, 255, 255)
@@ -70,15 +71,16 @@ def draw():
         if len(pathi) != 0:
             going = pathi[len(pathi)-1]
             vehicle.chase(PVector(going.x + 5, going.y + 5))
-            if vehicle.position.dist(going) < 10:
+            #print(vehicle.position.dist(going))
+            if vehicle.position == PVector(going.x+5, going.y + 5):
                 pathi.pop()
             
-        if food.position.dist(vehicle.position) < 10:
+        if food.position.dist(vehicle.position) < sqrt(50):
             food.update(getNonObstacle(terreno.matrixL, width, height))
             vehicle.velocity = PVector(0, 0)
             counter += 1
             currentState = 0
-        print('c')
+        #print('c')
     
     
     

@@ -4,7 +4,7 @@ class Bfs():
     
     def __init__(self, initialPos, endPos, terreno):
         self.initialPos = PVector.div(initialPos, 10) #PVector
-        self.endPos = endPos #PVector
+        self.endPos = PVector.div(endPos, 10) #PVector
         self.terreno = terreno 
         
         
@@ -17,6 +17,7 @@ class Bfs():
             current = frontier.get()
             #n = 0
             if current == self.endPos:
+                print('aaa')
                 break
             for next in self.terreno.getNeighbors(int(current.x), int(current.y)):
                 if(self.terreno.matrixL[int(next.x)][int(next.y)]!=0):

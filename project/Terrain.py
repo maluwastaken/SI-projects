@@ -33,7 +33,7 @@ class Terrain():
             return (1, color(155, 255, 255))
         elif value < 0.4: # Sand
             return (1, color(30, 255, 255))
-        elif value < 0.6: # Grass
+        elif value < 0.5: # Grass
             return (2, color(66, 255, 255))
         else: # Obstacle
             return (0, color(0, 0, 0))
