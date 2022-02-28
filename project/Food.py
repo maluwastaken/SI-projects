@@ -6,7 +6,7 @@ class Food():
         self.acceleration = PVector(0, 0)
         self.velocity = vel
         self.position = pos
-        self.r = 10
+        self.r = 5
         self.maxspeed = 1.0
         self.maxforce = 0.01
         

@@ -9,7 +9,7 @@ class Vehicle():
         self.acceleration = PVector(0, 0)
         self.velocity = vel
         self.position = pos
-        self.r = 6
+        self.r = 4
         self.maxspeed = 5
         self.maxforce = 1
 
