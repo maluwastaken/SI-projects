@@ -2,14 +2,17 @@
 
 class Food():
 
-    def __init__(self, x, y, vel):
+    def __init__(self, pos, vel):
         self.acceleration = PVector(0, 0)
         self.velocity = vel
-        self.position = PVector(x, y)
-        self.r = 10
+        self.position = pos
+        self.r = 5
         self.maxspeed = 1.0
         self.maxforce = 0.01
         
+    def getPosition(self):
+        return self.position
+    
     def star(self):
         radius1 = self.r * 1.3
         radius2 = self.r * 0.6

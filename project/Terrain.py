@@ -30,7 +30,7 @@ class Terrain():
         colorMode(HSB)
         value = noise(i * self.scl, j * self.scl)
         if value < 0.3: # Water
-            return (0.2, color(155, 255, 255))
+            return (1, color(155, 255, 255))
         elif value < 0.4: # Sand
             return (1, color(30, 255, 255))
         elif value < 0.6: # Grass
@@ -38,6 +38,20 @@ class Terrain():
         else: # Obstacle
             return (0, color(0, 0, 0))
         
+    def getNeighbors(self, i, j):
+        neighbors = []
+        for u in range(i-1, i+2):
+            for v in range(j-1, j+2):
+                if(u == i and v == j):
+                    continue
+                elif(u < 0 or v < 0):
+                    continue
+                elif(u >= self.w/10 or v >= self.h/10):
+                    continue
+                else:
+                    neighbors.append(PVector(u,v))               
+        return neighbors
+            
     def validPosition(self, position):
         x = int(position.x / 10)
         y = int(position.y / 10)
@@ -46,5 +60,5 @@ class Terrain():
             return False
         
         return True
-                
+
         

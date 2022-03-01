@@ -3,16 +3,15 @@
 # http://natureofcode.com
 
 # The "Vehicle" class
-
 class Vehicle():
 
-    def __init__(self, x, y, vel):
+    def __init__(self, pos, vel):
         self.acceleration = PVector(0, 0)
         self.velocity = vel
-        self.position = PVector(x, y)
-        self.r = 6
+        self.position = pos
+        self.r = 4
         self.maxspeed = 5
-        self.maxforce = 1
+        self.maxforce = 10
 
     def checkTerrain(self, mat, tl):
         position = self.position/tl
@@ -20,7 +19,9 @@ class Vehicle():
         #print(str(int(position.x)) + ' ' +  str(int(position.y)))
         #print(mat[int(position.x)][int(position.y)])
         #print(mat[int(position.x)])
-        self.maxspeed = mat[int(position.x)][int(position.y)]
+        self.maxspeed = mat[int(floor(self.position.x/10))][int(floor(self.position.y/10))]
+        if(self.maxspeed == 0):
+            print(self.position)
         #print(self.velocity)
         
 
@@ -53,9 +54,9 @@ class Vehicle():
             vertex(-self.r, self.r * 2)
             vertex(self.r, self.r * 2)
             endShape(CLOSE)
-            
+        
     def chase(self, food):
-        pos = food.position - self.position #get position vector
+        pos = food - self.position #get position vector
         dir = pos - self.velocity #get direction to apply force to
         self.applyForce(dir)
     
