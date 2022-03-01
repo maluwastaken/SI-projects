@@ -19,7 +19,7 @@ class Terrain():
                 aux2.append(retUple[1])
             self.matrixC.append(aux2)
             self.matrixL.append(aux)
-        print(self.matrixL)
+
     def render(self):
         for i in range(0, self.w/self.tileSize):
             for j in range(0, self.h/self.tileSize):
@@ -37,5 +37,14 @@ class Terrain():
             return (2, color(66, 255, 255))
         else: # Obstacle
             return (0, color(0, 0, 0))
-            
+        
+    def validPosition(self, position):
+        x = int(position.x / 10)
+        y = int(position.y / 10)
+        
+        if self.matrixL[x][y] == 0:
+            return False
+        
+        return True
+                
         

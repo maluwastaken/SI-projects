@@ -25,11 +25,13 @@ def setup():
     
 def draw(): 
     global counter
+    fill(255)
+
     food.update(food.position)
     if food.position == vehicle.position:
         food.update(PVector(randint(0, width), randint(0, height)))
         counter += 1
-    fill(255)
+    
     terreno.render()
     vehicle.chase(food)
     vehicle.update(terreno.matrixL, terreno.tileSize)
