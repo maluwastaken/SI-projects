@@ -19,7 +19,7 @@ class Terrain():
                 aux2.append(retUple[1])
             self.matrixC.append(aux2)
             self.matrixL.append(aux)
-        #print(self.matrixL)
+
     def render(self):
         for i in range(0, self.w/self.tileSize):
             for j in range(0, self.h/self.tileSize):
@@ -49,9 +49,16 @@ class Terrain():
                 elif(u >= self.w/10 or v >= self.h/10):
                     continue
                 else:
-                    neighbors.append(PVector(u,v))
-                    
+                    neighbors.append(PVector(u,v))               
         return neighbors
             
-            
+    def validPosition(self, position):
+        x = int(position.x / 10)
+        y = int(position.y / 10)
+        
+        if self.matrixL[x][y] == 0:
+            return False
+        
+        return True
+
         

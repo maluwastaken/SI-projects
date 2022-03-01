@@ -85,8 +85,6 @@ def draw():
             currentState = 0
         #print('c')
     
-    
-    
     vehicle.update(terreno.matrixL, terreno.tileSize)
     vehicle.display()
     food.display()
