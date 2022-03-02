@@ -3,6 +3,7 @@ from Vehicle import Vehicle
 from Food import Food
 from Terrain import Terrain
 from Bfs import Bfs
+from Dijkstra import Dijkstra
 from random import randint
 
 
@@ -16,6 +17,7 @@ def getNonObstacle(mat, w, h):
 
 def setup():
     global vehicle, food, counter, printer, terreno, currentState, path, finalPath, bfs
+    global djik
     size(640, 360)
     background(0)
     finalPath = []
@@ -30,7 +32,8 @@ def setup():
     fPos = getNonObstacle(terreno.matrixL, width-10, height-10)
     vehicle = Vehicle(vPos, velocity_v)
     food = Food(fPos, velocity_f)
-    bfs = Bfs(vehicle.position, food.getPosition(), terreno)
+    #bfs = Bfs(vehicle.position, food.getPosition(), terreno)
+    bfs = Dijkstra(vehicle.position, food.getPosition(), terreno)
     #noLoop()
     #x = path.get()
 def draw(): 
@@ -41,9 +44,9 @@ def draw():
     terreno.render()
     fill(255)
     if currentState == 0:
-        ret = bfs.bfs_search()
+        ret = bfs.djikstra_search()
         for pathi in list(bfs.frontier.queue):
-            fill(0, 255, 255)
+            fill(150, 200, 255)
             rect(pathi.x * 10, pathi.y * 10, 10, 10)
         if bfs.frontier.empty() or ret == 1:
             path = bfs.came_from
