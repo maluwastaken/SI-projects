@@ -30,7 +30,7 @@ class Terrain():
         colorMode(HSB)
         value = noise(i * self.scl, j * self.scl)
         if value < 0.3: # Water
-            return (1, color(155, 255, 255))
+            return (0.2, color(155, 255, 255))
         elif value < 0.4: # Sand
             return (1, color(30, 255, 255))
         elif value < 0.6: # Grass
