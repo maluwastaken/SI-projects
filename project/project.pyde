@@ -1,10 +1,3 @@
-# The Nature of Code
-# Daniel Shiffman
-# http://natureofcode.com
-#
-# Modified by Filipe Calegario
-
-# Draws a "vehicle" on the screen
 
 from Vehicle import Vehicle
 from Food import Food
@@ -22,10 +15,10 @@ def getNonObstacle(mat, w, h):
     return PVector(pos[0], pos[1])
 
 def setup():
-    global vehicle, food, counter, printer, terreno, currentState, path, pathi
+    global vehicle, food, counter, printer, terreno, currentState, path, finalPath, bfs
     size(640, 360)
     background(0)
-    pathi = []
+    finalPath = []
     path = {}
     currentState = 0
     terreno = Terrain(width, height)
@@ -37,55 +30,60 @@ def setup():
     fPos = getNonObstacle(terreno.matrixL, width-10, height-10)
     vehicle = Vehicle(vPos, velocity_v)
     food = Food(fPos, velocity_f)
+    bfs = Bfs(vehicle.position, food.getPosition(), terreno)
     #noLoop()
     #x = path.get()
 def draw(): 
     global currentState, pathi
     global counter
     global path
-    global pathi
+    global finalPath
     terreno.render()
     fill(255)
     if currentState == 0:
-        bfs = Bfs(vehicle.position, food.getPosition(), terreno)
-        path = bfs.search()
-        currentState = 1
-        print('a')
+        ret = bfs.bfs_search()
+        for pathi in list(bfs.frontier.queue):
+            fill(0, 255, 255)
+            rect(pathi.x * 10, pathi.y * 10, 10, 10)
+        if bfs.frontier.empty() or ret == 1:
+            path = bfs.came_from
+            currentState = 1
     elif currentState == 1:    
         finalPos = PVector(floor(food.position[0]/10), floor(food.position[1]/10))
         initPos = PVector(floor(vehicle.position[0]/10), floor(vehicle.position[1]/10))
-        print(finalPos)
-        try:
-            current = path[finalPos]
-            
-            pathi.append(finalPos * 10)
-            while current != initPos and current != None:
-                pathi.append(current * 10)
-                current = path[current]
-            currentState = 2
-            print(pathi)
-        except:
-            print(finalPos)
-            currentState=2
+        #print(finalPos)
+        current = path[finalPos]
+        print(current, ' olha eu aquiii')
+        finalPath.append(finalPos * 10)
+        while current != initPos and current != None:
+            finalPath.append(current * 10)
+            current = path[current]
+        currentState = 2
+        print(finalPath)
+            #print('remake')
+            #food.update(getNonObstacle(terreno.matrixL, width, height))
+            #bfs.reset(vehicle.position, food.position, terreno)
+            #currentState = 0
     elif currentState == 2:
-        for pat in pathi:
+        for pat in finalPath:
             fill(0, 255, 255)
             rect(pat.x, pat.y, 10, 10)
-        if len(pathi) != 0:
-            going = pathi[len(pathi)-1]
+        if len(finalPath) != 0:
+            going = finalPath[len(finalPath)-1]
             vehicle.chase(PVector(going.x + 5, going.y + 5))
             if vehicle.position == PVector(going.x + 5, going.y + 5):
-                pathi.pop()
-            
+                finalPath.pop()
+        vehicle.update(terreno.matrixL, terreno.tileSize)
+
         if food.position.dist(vehicle.position) < sqrt(50):
             food.update(getNonObstacle(terreno.matrixL, width, height))
             vehicle.velocity = PVector(0, 0)
-            pathi = []
+            finalPath = []
             counter += 1
             currentState = 0
+            bfs.reset(vehicle.position, food.position, terreno)
         #print('c')
     
-    vehicle.update(terreno.matrixL, terreno.tileSize)
     vehicle.display()
     food.display()
     
