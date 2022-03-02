@@ -34,6 +34,7 @@ def setup():
     food = Food(fPos, velocity_f)
     #bfs = Bfs(vehicle.position, food.getPosition(), terreno)
     bfs = Dijkstra(vehicle.position, food.getPosition(), terreno)
+    #frameRate(5)
     #noLoop()
     #x = path.get()
 def draw(): 
@@ -46,7 +47,7 @@ def draw():
     if currentState == 0:
         ret = bfs.djikstra_search()
         for pathi in list(bfs.frontier.queue):
-            fill(150, 200, 255)
+            fill(0, 255, 255)
             rect(pathi.x * 10, pathi.y * 10, 10, 10)
         if bfs.frontier.empty() or ret == 1:
             path = bfs.came_from
