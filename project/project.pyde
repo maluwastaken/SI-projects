@@ -45,7 +45,6 @@ def draw():
     fill(255)
     if currentState == 0:
         ret = bfs.djikstra_search()
-        print(bfs.frontier.queue)
         for pathi in list(bfs.frontier.queue):
             fill(170, 200, 255)
             rect(pathi.x * 10, pathi.y * 10, 10, 10)
@@ -55,19 +54,12 @@ def draw():
     elif currentState == 1:    
         finalPos = PVector(floor(food.position[0]/10), floor(food.position[1]/10))
         initPos = PVector(floor(vehicle.position[0]/10), floor(vehicle.position[1]/10))
-        #print(finalPos)
         current = path[finalPos]
-        #print(current, ' olha eu aquiii')
         finalPath.append(finalPos * 10)
         while current != initPos and current != None:
             finalPath.append(current * 10)
             current = path[current]
         currentState = 2
-        #print(finalPath)
-            #print('remake')
-            #food.update(getNonObstacle(terreno.matrixL, width, height))
-            #bfs.reset(vehicle.position, food.position, terreno)
-            #currentState = 0
     elif currentState == 2:
         for pat in finalPath:
             fill(0, 255, 255)
@@ -86,7 +78,6 @@ def draw():
             counter += 1
             currentState = 0
             bfs.reset(vehicle.position, food.position, terreno)
-        #print('c')
     
     vehicle.display()
     food.display()

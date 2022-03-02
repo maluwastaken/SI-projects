@@ -23,7 +23,6 @@ class Bfs():
     def bfs_search(self):
         current = self.frontier.get()
         if current == self.endPos:
-            print('aaa ', current)
             return 1
         for next in self.terreno.getNeighbors(int(current.x), int(current.y)):
             if(self.terreno.matrixL[int(next.x)][int(next.y)]!=0):
