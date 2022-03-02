@@ -27,8 +27,8 @@ class Dijkstra():
     def djikstra_search(self):
         while not self.frontier.empty():
             current = self.frontier.get()
-            #if current == self.endPos:
-                #break
+            if current == self.endPos:
+                break
             for next in self.terreno.getNeighbors(int(current.x), int(current.y)):
                 if(self.terreno.matrixL[int(next.x)][int(next.y)]!=0):
                     new_cost = self.cost_so_far[current] + (self.terreno.matrixCoust[int(next.x)][int(next.y)])

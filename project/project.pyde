@@ -17,7 +17,6 @@ def getNonObstacle(mat, w, h):
 
 def setup():
     global vehicle, food, counter, printer, terreno, currentState, path, finalPath, bfs
-    global djik
     size(640, 360)
     background(0)
     finalPath = []
@@ -46,8 +45,9 @@ def draw():
     fill(255)
     if currentState == 0:
         ret = bfs.djikstra_search()
+        print(bfs.frontier.queue)
         for pathi in list(bfs.frontier.queue):
-            fill(0, 255, 255)
+            fill(170, 200, 255)
             rect(pathi.x * 10, pathi.y * 10, 10, 10)
         if bfs.frontier.empty() or ret == 1:
             path = bfs.came_from
@@ -57,13 +57,13 @@ def draw():
         initPos = PVector(floor(vehicle.position[0]/10), floor(vehicle.position[1]/10))
         #print(finalPos)
         current = path[finalPos]
-        print(current, ' olha eu aquiii')
+        #print(current, ' olha eu aquiii')
         finalPath.append(finalPos * 10)
         while current != initPos and current != None:
             finalPath.append(current * 10)
             current = path[current]
         currentState = 2
-        print(finalPath)
+        #print(finalPath)
             #print('remake')
             #food.update(getNonObstacle(terreno.matrixL, width, height))
             #bfs.reset(vehicle.position, food.position, terreno)
