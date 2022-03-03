@@ -8,9 +8,8 @@ from random import randint
 
 def getNonObstacle(mat, w, h):
     pos = [randint(0, w/10), randint(0, h/10)]
-    
     while mat[int(floor(pos[0]))][int(floor(pos[1]))] == 0:
-        pos = [randint(0, (w/10)-10), randint(0, (h/10)-10)]
+        pos = [randint(0, (w/10)), randint(0, (h/10))]
         
     return PVector(pos[0] * 10 + 5, pos[1] * 10 + 5)
 
