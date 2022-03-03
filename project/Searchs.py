@@ -58,7 +58,6 @@ class Dijkstra():
     def search(self):
         current = hq.heappop(self.frontier)[1]
         if current == self.endPos:
-            print(self.cost_so_far[current])
             return 1
         for next in self.terreno.getNeighbors(int(current.x), int(current.y)):
             if(self.terreno.matrixL[int(next.x)][int(next.y)]!=0):
@@ -82,7 +81,6 @@ class Gulosa():
         self.came_from[self.initialPos] = None
 
     def heuristic(self,ax,ay,bx,by):
-        print(ax,ay,bx,by)
         return abs(ax - bx) + abs(ay - by)  
     
     def search(self):
