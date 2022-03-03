@@ -2,7 +2,7 @@
 from Vehicle import Vehicle
 from Food import Food
 from Terrain import Terrain
-from Searchs import BFS, Dijkstra, Gulosa, A
+from Searchs import BFS, DFS, Dijkstra, Gulosa, A
 from random import randint
 
 
@@ -134,7 +134,9 @@ def draw_menu():
             search_method = BFS
             selected_option = True
         elif(key == '2'):
-            print(4)
+            reset()
+            search_method = DFS
+            selected_option = True
         elif(key == '3'):
             reset()
             search_method = Dijkstra

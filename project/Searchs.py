@@ -33,7 +33,7 @@ class DFS():
         self.came_from[self.initialPos] = None
     
     def search(self):
-        current = self.frontier.pop(0)[1]
+        current = self.frontier.pop(-1)[1]
         if current == self.endPos:
             return 1
         for next in self.terreno.getNeighbors(int(current.x), int(current.y)):
@@ -42,6 +42,7 @@ class DFS():
                     self.frontier.append((0, next))
                     self.came_from[next] = current
         return 0
+    
 class Dijkstra():
     def __init__(self, initialPos, endPos, terreno):
         self.initialPos = PVector(int(floor(initialPos.x/10)), int(floor(initialPos.y/10))) #PVector
