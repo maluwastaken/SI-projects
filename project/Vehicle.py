@@ -27,10 +27,10 @@ class Vehicle():
         #print(str(int(position.x)) + ' ' +  str(int(position.y)))
         #print(mat[int(position.x)][int(position.y)])
         #print(mat[int(position.x)])
-        self.maxspeed = mat[int(floor(self.position.x/10))][int(floor(self.position.y/10))]
-        if(self.maxspeed == 0):
-            print(self.position)
-        #print(self.velocity)
+        self.maxspeed = mat[int(floor(self.position.x/tl))][int(floor(self.position.y/tl))]
+
+        if int(floor(self.position.x/tl)) > 63 or int(floor(self.position.x/tl)) < 0 or int(floor(self.position.y/tl)) < 0 or int(floor(self.position.y/tl)) > 35:
+            self.maxspeed = 0
         
 
     # Method to update location
