@@ -46,7 +46,15 @@ class Terrain():
         neighbors = []
         for u in range(i-1, i+2):
             for v in range(j-1, j+2):
-                if(u == i and v == j):
+                if(u == i-1 and v == j-1):
+                    continue
+                elif(u == i-1 and v == j+1):
+                    continue
+                elif(u == i+1 and v == j-1):
+                    continue
+                elif(u == i+i and v == j+1):
+                    continue
+                elif(u == i and v == j):
                     continue
                 elif(u < 0 or v < 0):
                     continue
@@ -54,7 +62,21 @@ class Terrain():
                     continue
                 else:
                     neighbors.append(PVector(u,v))               
-        return neighbors
+        return neighbors    
+    
+    #def getNeighbors(self, i, j):
+        #neighbors = []
+        #for u in range(i-1, i+2):
+            #for v in range(j-1, j+2):
+                #if(u == i and v == j):
+                    #continue
+                #elif(u < 0 or v < 0):
+                    #continue
+                #elif(u >= self.w/10 or v >= self.h/10):
+                    #continue
+                #else:
+                    #neighbors.append(PVector(u,v))               
+        #return neighbors
             
     def validPosition(self, position):
         x = int(position.x / 10)

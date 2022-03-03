@@ -10,7 +10,7 @@ def getNonObstacle(mat, w, h):
     pos = [randint(0, w/10), randint(0, h/10)]
     
     while mat[int(floor(pos[0]))][int(floor(pos[1]))] == 0:
-        pos = [randint(0, w/10), randint(0, h/10)]
+        pos = [randint(0, (w/10)-10), randint(0, (h/10)-10)]
         
     return PVector(pos[0] * 10 - 5, pos[1] * 10 - 5)
 
@@ -26,8 +26,8 @@ def setup():
     printer = createFont("Arial", 72, True)
     velocity_v = PVector(0, 0)
     velocity_f = PVector(0, 0)
-    vPos = getNonObstacle(terreno.matrixL, width-10, height-10)
-    fPos = getNonObstacle(terreno.matrixL, width-10, height-10)
+    vPos = getNonObstacle(terreno.matrixL, width-11, height-11)
+    fPos = getNonObstacle(terreno.matrixL, width-11, height-11)
     vehicle = Vehicle(vPos, velocity_v)
     food = Food(fPos, velocity_f)
     #search = Bfs(vehicle.position, food.getPosition(), terreno)
@@ -43,7 +43,7 @@ def draw():
     if currentState == 0:
         ret = search.djikstra_search()
         for pathi in list(search.frontier):
-            fill(170, 200, 255)
+            fill(110, 255, 255)
             rect(pathi[1].x * 10, pathi[1].y * 10, 10, 10)
         if search.frontier == [] or ret == 1:
             path = search.came_from
