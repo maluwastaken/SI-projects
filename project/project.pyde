@@ -51,7 +51,18 @@ def draw():
     
     if(keyPressed and key == '0' and selected_option == True):
         selected_option = False
-        
+    if(keyPressed and key != '0'):
+        if(key == '1'):
+            search_method = BFS
+        elif(key == '2'):
+            search_method = DFS
+        elif(key == '3'):
+            search_method = Dijkstra
+        elif(key == '4'):
+            search_method = Gulosa
+        elif(key == '5'):
+            search_method = A
+       
     if selected_option == False:
         draw_menu()
         currentState = -1
