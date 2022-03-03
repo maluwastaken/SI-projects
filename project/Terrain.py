@@ -9,7 +9,7 @@ class Terrain():
         self.w = width
         self.h = height
         self.start()
-        
+    
     def start(self):
         for i in range(0, self.w/self.tileSize):
             aux = []
@@ -40,7 +40,7 @@ class Terrain():
         elif value < 0.6: # Grass
             return (2, color(66, 255, 255), 1)
         else: # Obstacle
-            return (0, color(0, 0, 0), 0)
+            return (0, color(0, 0, 0), 1000)
         
     def getNeighbors(self, i, j):
         neighbors = []

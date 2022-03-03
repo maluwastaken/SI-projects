@@ -10,6 +10,11 @@ class Food():
         self.maxspeed = 1.0
         self.maxforce = 0.01
         
+    def reset(self, pos, vel):
+        self.acceleration = PVector(0, 0)
+        self.velocity = vel
+        self.position = pos
+        
     def getPosition(self):
         return self.position
     

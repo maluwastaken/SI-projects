@@ -12,6 +12,14 @@ class Vehicle():
         self.r = 4
         self.maxspeed = 5
         self.maxforce = 10
+        
+    def getPosition(self):
+        return self.position
+        
+    def reset(self, pos, vel):
+        self.acceleration = PVector(0, 0)
+        self.velocity = vel
+        self.position = pos
 
     def checkTerrain(self, mat, tl):
         position = self.position/tl

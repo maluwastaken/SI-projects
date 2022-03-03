@@ -24,17 +24,16 @@ class Dijkstra():
         self.came_from[self.initialPos] = None
         self.cost_so_far[self.initialPos] = 0
     
-    def djikstra_search(self):
-        while not self.frontier.empty():
-            current = self.frontier.get()
-            if current == self.endPos:
-                break
-            for next in self.terreno.getNeighbors(int(current.x), int(current.y)):
-                if(self.terreno.matrixL[int(next.x)][int(next.y)]!=0):
-                    new_cost = self.cost_so_far[current] + (self.terreno.matrixCoust[int(next.x)][int(next.y)])
-                    if next not in self.cost_so_far or new_cost < self.cost_so_far[next]:
-                        self.cost_so_far[next] = new_cost
-                        priority = new_cost
-                        self.frontier.put(next, priority)
-                        self.came_from[next] = current
-        return self.came_from
+    def search(self):
+        current = self.frontier.get()
+        if current == self.endPos:
+            return 1
+        for next in self.terreno.getNeighbors(int(current.x), int(current.y)):
+            if(self.terreno.matrixL[int(next.x)][int(next.y)]!=0):
+                new_cost = self.cost_so_far[current] + (self.terreno.matrixCoust[int(next.x)][int(next.y)])
+                if next not in self.cost_so_far or new_cost < self.cost_so_far[next]:
+                    self.cost_so_far[next] = new_cost
+                    priority = new_cost
+                    self.frontier.put(next, priority)
+                    self.came_from[next] = current
+        return 0
