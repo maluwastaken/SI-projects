@@ -2,7 +2,7 @@
 from Vehicle import Vehicle
 from Food import Food
 from Terrain import Terrain
-from Searchs import Bfs, Dijkstra, Gulosa, A
+from Searchs import BFS, Dijkstra, Gulosa, A
 from random import randint
 
 
@@ -15,7 +15,7 @@ def getNonObstacle(mat, w, h):
     return PVector(pos[0] * 10 + 5, pos[1] * 10 + 5)
 
 def reset():
-    global vehicle, food, search_method
+    global vehicle, food
     velocity_v = PVector(0, 0)
     velocity_f = PVector(0, 0)
     vPos = getNonObstacle(terreno.matrixL, width-10, height-10)
@@ -25,12 +25,12 @@ def reset():
     food.reset(fPos, velocity_f)
 
 def setup():
-    global vehicle, food, counter, printer, terreno, currentState, path, finalPath, search, selected_option
+    global vehicle, food, counter, printer, terreno, currentState, path, finalPath, search, selected_option, search_method
     size(640, 360)
     background(0)
     finalPath = []
     path = {}
-    currentState = 0
+    currentState = -1
     terreno = Terrain(width, height)
     counter = 0
     printer = createFont("Arial", 72, True)
@@ -40,8 +40,6 @@ def setup():
     fPos = getNonObstacle(terreno.matrixL, width-11, height-11)
     vehicle = Vehicle(vPos, velocity_v)
     food = Food(fPos, velocity_f)
-    #search = Bfs(vehicle.position, food.getPosition(), terreno)
-    #search = Dijkstra(vehicle.position, food.getPosition(), terreno)
     selected_option = False
     
 def draw(): 
@@ -50,22 +48,27 @@ def draw():
     global path
     global finalPath
     global selected_option
-
+    global search_method
+    global search
+    
     if(keyPressed and key == '0' and selected_option == True):
         selected_option = False
         
     if selected_option == False:
         draw_menu()
-        currentState = 0
+        currentState = -1
         finalPath = []
         path = {}
         counter = 0    
     else:
         terreno.render()
         fill(255)
-        if currentState == 0:
+        if currentState == -1:
+            search = search_method(vehicle.getPosition(), food.getPosition(), terreno)
+            currentState = 0
+        elif currentState == 0:
             for pathi in list(search.frontier):
-                fill(110, 255, 255)
+                fill(0, 255, 255)
                 rect(pathi[1].x * 10, pathi[1].y * 10, 10, 10)
             ret = search.search()
             if search.frontier == [] or ret == 1:
@@ -89,21 +92,21 @@ def draw():
                 vehicle.chase(PVector(going.x + 5, going.y + 5))
                 if vehicle.position == PVector(going.x + 5, going.y + 5):
                     finalPath.pop()
-            vehicle.update(terreno.matrixL, terreno.tileSize)
-    
+            
             if food.position.dist(vehicle.position) < sqrt(50):
                 food.update(getNonObstacle(terreno.matrixL, width-10, height-10))
                 vehicle.velocity = PVector(0, 0)
                 finalPath = []
                 counter += 1
-                currentState = 0
-                search.reset(vehicle.position, food.position, terreno)
-            
+                currentState = -1
+                
+            vehicle.update(terreno.matrixL, terreno.tileSize)
         vehicle.display()
         food.display()
 
 def draw_menu():
     global selected_option
+    global search_method
     global search
     global vehicle
     global food
@@ -128,24 +131,20 @@ def draw_menu():
     if(keyPressed):
         if(key == '1'):
             reset()
-            search = Bfs(vehicle.getPosition(), food.getPosition(), terreno)
-            search.reset(vehicle.getPosition(), food.getPosition(), terreno)
+            search_method = BFS
             selected_option = True
         elif(key == '2'):
             print(4)
         elif(key == '3'):
             reset()
-            search = Dijkstra(vehicle.getPosition(), food.getPosition(), terreno)
-            search.reset(vehicle.getPosition(), food.getPosition(), terreno)
+            search_method = Dijkstra
             selected_option = True
         elif(key == '4'):
             reset()
-            search = Gulosa(vehicle.getPosition(), food.getPosition(), terreno)
-            search.reset(vehicle.getPosition(), food.getPosition(), terreno)
+            search_method = Gulosa
             selected_option = True
         elif(key == '5'):
             reset()
-            search = A(vehicle.getPosition(), food.getPosition(), terreno)
-            search.reset(vehicle.getPosition(), food.getPosition(), terreno)
+            search_method = A
             selected_option = True
         

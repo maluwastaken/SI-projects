@@ -2,17 +2,9 @@ from Queue import Queue
 from Terrain import Terrain
 import heapq as hq
 
-class Bfs():
+class BFS():
     
     def __init__(self, initialPos, endPos, terreno):
-        self.initialPos = PVector(int(floor(initialPos.x/10)), int(floor(initialPos.y/10))) #PVector
-        self.endPos = PVector(int(floor(endPos.x/10)), int(floor(endPos.y/10))) #PVector
-        self.terreno = terreno 
-        self.frontier = [(0, self.initialPos)]
-        self.came_from = dict()
-        self.came_from[self.initialPos] = None
-        
-    def reset(self, initialPos, endPos, terreno):
         self.initialPos = PVector(int(floor(initialPos.x/10)), int(floor(initialPos.y/10))) #PVector
         self.endPos = PVector(int(floor(endPos.x/10)), int(floor(endPos.y/10))) #PVector
         self.terreno = terreno 
@@ -30,20 +22,28 @@ class Bfs():
                     self.frontier.append((0, next))
                     self.came_from[next] = current
         return 0
-
-class Dijkstra():
+                
+class DFS():
     def __init__(self, initialPos, endPos, terreno):
         self.initialPos = PVector(int(floor(initialPos.x/10)), int(floor(initialPos.y/10))) #PVector
         self.endPos = PVector(int(floor(endPos.x/10)), int(floor(endPos.y/10))) #PVector
         self.terreno = terreno 
-        self.frontier = []
-        hq.heappush(self.frontier, (0, self.initialPos))
+        self.frontier = [(0, self.initialPos)]
         self.came_from = dict()
-        self.cost_so_far = dict()
         self.came_from[self.initialPos] = None
-        self.cost_so_far[self.initialPos] = 0
     
-    def reset(self, initialPos, endPos, terreno):
+    def search(self):
+        current = self.frontier.pop(0)[1]
+        if current == self.endPos:
+            return 1
+        for next in self.terreno.getNeighbors(int(current.x), int(current.y)):
+            if(self.terreno.matrixL[int(next.x)][int(next.y)]!=0):
+                if next not in self.came_from:
+                    self.frontier.append((0, next))
+                    self.came_from[next] = current
+        return 0
+class Dijkstra():
+    def __init__(self, initialPos, endPos, terreno):
         self.initialPos = PVector(int(floor(initialPos.x/10)), int(floor(initialPos.y/10))) #PVector
         self.endPos = PVector(int(floor(endPos.x/10)), int(floor(endPos.y/10))) #PVector
         self.terreno = terreno 
@@ -67,8 +67,8 @@ class Dijkstra():
                     hq.heappush(self.frontier, (priority, next))
                     self.came_from[next] = current
         return 0
-                
-    
+
+        
 class Gulosa():
     def __init__(self, initialPos, endPos, terreno):
         self.initialPos = PVector(int(floor(initialPos.x/10)), int(floor(initialPos.y/10))) #PVector
@@ -78,16 +78,7 @@ class Gulosa():
         hq.heappush(self.frontier, (0, self.initialPos))
         self.came_from = dict()
         self.came_from[self.initialPos] = None
-    
-    def reset(self, initialPos, endPos, terreno):
-        self.initialPos = PVector(int(floor(initialPos.x/10)), int(floor(initialPos.y/10))) #PVector
-        self.endPos = PVector(int(floor(endPos.x/10)), int(floor(endPos.y/10))) #PVector
-        self.terreno = terreno 
-        self.frontier = []
-        hq.heappush(self.frontier, (0, self.initialPos))
-        self.came_from = dict()
-        self.came_from[self.initialPos] = None
-        
+
     def heuristic(self,ax,ay,bx,by):
         return abs(ax - bx) + abs(ay - by)  
     
@@ -115,18 +106,7 @@ class A():
         self.cost_so_far = dict()
         self.came_from[self.initialPos] = None
         self.cost_so_far[self.initialPos] = 0
-    
-    def reset(self, initialPos, endPos, terreno):
-        self.initialPos = PVector(int(floor(initialPos.x/10)), int(floor(initialPos.y/10))) #PVector
-        self.endPos = PVector(int(floor(endPos.x/10)), int(floor(endPos.y/10))) #PVector
-        self.terreno = terreno 
-        self.frontier = []
-        hq.heappush(self.frontier, (0, self.initialPos))
-        self.came_from = dict()
-        self.cost_so_far = dict()
-        self.came_from[self.initialPos] = None
-        self.cost_so_far[self.initialPos] = 0
-    
+        
     def heuristic(self,ax,ay,bx,by):
         return abs(ax - bx) + abs(ay - by)
     
