@@ -52,9 +52,7 @@ class Vehicle():
         # Draw a triangle rotated in the direction of velocity
         theta = self.velocity.heading() + PI / 2
         fill(127)
-        stroke(125, 0, 0)
         strokeWeight(1)
-        print(theta)
         with pushMatrix():
             translate(self.position.x, self.position.y)
             rotate(theta)

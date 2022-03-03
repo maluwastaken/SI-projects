@@ -55,8 +55,10 @@ class Food():
 
     def display(self):
         # Draw a triangle rotated in the direction of velocity
+        colorMode(RGB, 255)
         theta = self.velocity.heading()# + PI / 2
-        fill(12)
+        fill(240, 0 , 100)
+        stroke(0)
         strokeWeight(1)
         with pushMatrix():
             translate(self.position.x, self.position.y)

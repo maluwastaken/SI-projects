@@ -6,8 +6,8 @@ class Terrain():
         self.matrixC = []
         self.matrixL = []
         self.matrixCoust = []
-        self.w = width
-        self.h = height
+        self.w = width -10
+        self.h = height -10
         self.start()
     
     def start(self):

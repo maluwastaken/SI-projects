@@ -2,7 +2,7 @@
 from Vehicle import Vehicle
 from Food import Food
 from Terrain import Terrain
-from Searchs import BFS, Dijkstra, Gulosa, A
+from Searchs import BFS, DFS, Dijkstra, Gulosa, A
 from random import randint
 
 
@@ -10,7 +10,8 @@ def getNonObstacle(mat, w, h):
     pos = [randint(0, w/10), randint(0, h/10)]
     
     while mat[int(floor(pos[0]))][int(floor(pos[1]))] == 0:
-        pos = [randint(0, (w/10)-10), randint(0, (h/10)-10)]
+        pos = [randint(0, w/10), randint(0, h/10)]
+        print(pos)
         
     return PVector(pos[0] * 10 + 5, pos[1] * 10 + 5)
 
@@ -36,8 +37,8 @@ def setup():
     printer = createFont("Arial", 72, True)
     velocity_v = PVector(0, 0)
     velocity_f = PVector(0, 0)
-    vPos = getNonObstacle(terreno.matrixL, width-11, height-11)
-    fPos = getNonObstacle(terreno.matrixL, width-11, height-11)
+    vPos = getNonObstacle(terreno.matrixL, width-10, height-10)
+    fPos = getNonObstacle(terreno.matrixL, width-10, height-10)
     vehicle = Vehicle(vPos, velocity_v)
     food = Food(fPos, velocity_f)
     selected_option = False
@@ -107,7 +108,6 @@ def draw():
 def draw_menu():
     global selected_option
     global search_method
-    global search
     global vehicle
     global food
     global terreno
@@ -134,7 +134,9 @@ def draw_menu():
             search_method = BFS
             selected_option = True
         elif(key == '2'):
-            print(4)
+            reset()
+            search_method = DFS
+            selected_option = True
         elif(key == '3'):
             reset()
             search_method = Dijkstra
