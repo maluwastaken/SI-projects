@@ -59,6 +59,7 @@ class Food():
         theta = self.velocity.heading()# + PI / 2
         fill(240, 0 , 100)
         stroke(0)
+        noStroke()
         strokeWeight(1)
         with pushMatrix():
             translate(self.position.x, self.position.y)

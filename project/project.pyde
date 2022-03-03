@@ -1,17 +1,15 @@
 
-from Vehicle import Vehicle
-from Food import Food
-from Terrain import Terrain
-from Searchs import BFS, DFS, Dijkstra, Gulosa, A
-from random import randint
-
+from Vehicle import Vehicle;
+from Food import Food;
+from Terrain import Terrain;
+from Searchs import BFS, DFS, Dijkstra, Gulosa, A;
+from random import randint;
 
 def getNonObstacle(mat, w, h):
     pos = [randint(0, w/10), randint(0, h/10)]
     while mat[int(floor(pos[0]))][int(floor(pos[1]))] == 0:
         pos = [randint(0, w/10), randint(0, h/10)]
-        print(pos)
-        
+  
     return PVector(pos[0] * 10 + 5, pos[1] * 10 + 5)
 
 def reset():
@@ -110,22 +108,9 @@ def draw_menu():
     global vehicle
     global food
     global terreno
-    colorMode(RGB, 255);
-    background(0)
-    fill(255)
-    rect(640, 360,0,0)
-    textSize(24)
-    fill(0, 255, 0)
-    text('Projeto de SI - Metodos de busca', width/5, 40)
-    textSize(16)
-    fill(0, 230, 0)
-    text('Selecione qual o algoritmo de busca voce deseja utilizar', 40, 140)
-    textSize(12)
-    text('1 - Largura', 40, 180)
-    text('2 - Profundidade', 40, 200)
-    text('3 - Custo Uniforme', 40, 220)
-    text('4 - Gulosa', 40, 240)
-    text('5 - A*', 40, 260)
+    
+    img = loadImage("menu.png")
+    image(img, 0,0)
     
     if(keyPressed):
         if(key == '1'):
