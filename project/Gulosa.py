@@ -21,6 +21,7 @@ class Gulosa():
         self.came_from[self.initialPos] = None
         
     def heuristic(self,ax,ay,bx,by):
+        print(ax,ay,bx,by)
         return abs(ax - bx) + abs(ay - by)  
     
     def search(self):

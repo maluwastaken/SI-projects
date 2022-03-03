@@ -26,6 +26,7 @@ class Dijkstra():
     
     def search(self):
         current = self.frontier.get()
+        
         if current == self.endPos:
             return 1
         for next in self.terreno.getNeighbors(int(current.x), int(current.y)):
