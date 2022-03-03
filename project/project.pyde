@@ -64,10 +64,10 @@ def draw():
         terreno.render()
         fill(255)
         if currentState == 0:
-            ret = search.search()
             for pathi in list(search.frontier):
                 fill(110, 255, 255)
                 rect(pathi[1].x * 10, pathi[1].y * 10, 10, 10)
+            ret = search.search()
             if search.frontier == [] or ret == 1:
                 path = search.came_from
                 currentState = 1
@@ -85,7 +85,7 @@ def draw():
                 fill(0, 255, 255)
                 rect(pat.x, pat.y, 10, 10)
             if len(finalPath) != 0:
-                going = finalPath[len(finalPath)-1]
+                going = finalPath[-1]
                 vehicle.chase(PVector(going.x + 5, going.y + 5))
                 if vehicle.position == PVector(going.x + 5, going.y + 5):
                     finalPath.pop()
@@ -100,7 +100,7 @@ def draw():
                 search.reset(vehicle.position, food.position, terreno)
             
         vehicle.display()
-        #food.display()
+        food.display()
 
 def draw_menu():
     global selected_option
