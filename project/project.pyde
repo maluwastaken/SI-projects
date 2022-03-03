@@ -99,8 +99,8 @@ def draw():
                 currentState = 0
                 search.reset(vehicle.position, food.position, terreno)
             
-            #vehicle.display()
-            #food.display()
+        vehicle.display()
+        #food.display()
 
 def draw_menu():
     global selected_option
