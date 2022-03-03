@@ -86,12 +86,22 @@ def draw():
         elif currentState == 1:    
             finalPos = PVector(floor(food.position[0]/10), floor(food.position[1]/10))
             initPos = PVector(floor(vehicle.position[0]/10), floor(vehicle.position[1]/10))
-            current = path[finalPos]
-            finalPath.append(finalPos * 10)
-            while current != initPos and current != None:
-                finalPath.append(current * 10)
-                current = path[current]
-            currentState = 2
+            try:
+                current = path[finalPos]
+                finalPath.append(finalPos * 10)
+                while current != initPos and current != None:
+                    finalPath.append(current * 10)
+                    current = path[current]
+                    currentState = 2
+            except:
+                food.update(getNonObstacle(terreno.matrixL, width-10, height-10))
+                vPos = getNonObstacle(terreno.matrixL, width-10, height-10)
+                vehicle.velocity = PVector(0, 0)
+                finalPath = []
+                counter += 1
+                currentState = -1
+                vehicle.setPosition(vPos)
+                
         elif currentState == 2:
             for pat in finalPath:
                 fill(0, 255, 255)
