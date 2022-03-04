@@ -117,12 +117,12 @@ def draw():
                 rect(pat.x, pat.y, 10, 10)
                 
             if len(finalPath) != 0:
-                if vehicle.position.dist(PVector(finalPath[-1].x + 5, finalPath[-1].y + 5)) < 5:
+                if vehicle.position.dist(PVector(finalPath[-1].x + 5, finalPath[-1].y + 5)) < vehicle.maxspeed:
                     finalPath.pop()
                     if len(finalPath) > 0:
                         vehicle.chase(PVector(finalPath[-1].x + 5, finalPath[-1].y + 5))
             
-            if food.position.dist(vehicle.position) < sqrt(50):
+            if food.position.dist(vehicle.position) < vehicle.maxspeed:
                 food.update(getNonObstacle(terreno.matrixL, width-10, height-10))
                 vehicle.velocity = PVector(0, 0)
                 finalPath = []
