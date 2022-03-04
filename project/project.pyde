@@ -31,7 +31,7 @@ def setup():
     currentState = -1
     terreno = Terrain(width, height)
     counter = 0
-    printer = createFont("Arial", 72, True)
+    printer = createFont("Arial Black", 18, True)
     velocity_v = PVector(0, 0)
     velocity_f = PVector(0, 0)
     vPos = getNonObstacle(terreno.matrixL, width-10, height-10)
@@ -122,6 +122,11 @@ def draw():
             vehicle.update(terreno.matrixL, terreno.tileSize)
         vehicle.display()
         food.display()
+        textFont(printer)
+        fill(149, 85, 232)
+        text("Comidas comidas: " + str(counter), 10, 20)
+        text("Aperte 0 para voltar", 440, 350)
+        
 
 def draw_menu():
     global selected_option
