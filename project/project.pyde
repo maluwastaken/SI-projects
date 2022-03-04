@@ -117,7 +117,7 @@ def draw():
                 rect(pat.x, pat.y, 10, 10)
                 
             if len(finalPath) != 0:
-                if vehicle.position.dist(PVector(finalPath[-1].x + 5, finalPath[-1].y + 5)) <1:
+                if vehicle.position.dist(PVector(finalPath[-1].x + 5, finalPath[-1].y + 5)) < 5:
                     finalPath.pop()
                     if len(finalPath) > 0:
                         vehicle.chase(PVector(finalPath[-1].x + 5, finalPath[-1].y + 5))
