@@ -50,6 +50,7 @@ def draw():
     global search_method
     global search
     global visited
+    global changeMethod
     
     if(keyPressed and key == '0' and selected_option == True):
         selected_option = False
@@ -76,6 +77,7 @@ def draw():
         fill(255)
         if currentState == -1:
             search = search_method(vehicle.getPosition(), food.getPosition(), terreno)
+            changeMethod = search_method
             currentState = 0
             visited = set()
         elif currentState == 0:
@@ -99,13 +101,13 @@ def draw():
                 while current != initPos and current != None:
                     finalPath.append(current * 10)
                     current = path[current]
-                    currentState = 2
+                currentState = 2
+                vehicle.chase(PVector(finalPath[-1].x + 5, finalPath[-1].y + 5))
             except:
                 food.update(getNonObstacle(terreno.matrixL, width-10, height-10))
                 vPos = getNonObstacle(terreno.matrixL, width-10, height-10)
                 vehicle.velocity = PVector(0, 0)
                 finalPath = []
-                counter += 1
                 currentState = -1
                 vehicle.setPosition(vPos)
                 
@@ -113,11 +115,12 @@ def draw():
             for pat in finalPath:
                 fill(0, 255, 255)
                 rect(pat.x, pat.y, 10, 10)
+                
             if len(finalPath) != 0:
-                going = finalPath[-1]
-                vehicle.chase(PVector(going.x + 5, going.y + 5))
-                if vehicle.position == PVector(going.x + 5, going.y + 5):
+                if vehicle.position.dist(PVector(finalPath[-1].x + 5, finalPath[-1].y + 5)) <1:
                     finalPath.pop()
+                    if len(finalPath) > 0:
+                        vehicle.chase(PVector(finalPath[-1].x + 5, finalPath[-1].y + 5))
             
             if food.position.dist(vehicle.position) < sqrt(50):
                 food.update(getNonObstacle(terreno.matrixL, width-10, height-10))
@@ -133,17 +136,13 @@ def draw():
         fill(149, 85, 232)
         text("Comidas comidas: " + str(counter), 10, 20)
         text("Aperte 0 para voltar", 440, 350)
+        text(str(changeMethod).split('.')[1], 550, 15)
         textFont(printer2)
         text("1-Largura, 2-Profundidade, 3-Uniforme, 4-Guloso, 5-A*", 0, 350)
         
-        
-
 def draw_menu():
     global selected_option
     global search_method
-    global vehicle
-    global food
-    global terreno
     
     img = loadImage("menu.png")
     image(img, 0,0)

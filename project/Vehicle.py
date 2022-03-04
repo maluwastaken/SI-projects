@@ -23,16 +23,11 @@ class Vehicle():
 
     def checkTerrain(self, mat, tl):
         position = self.position/tl
-        #
-        #print(str(int(position.x)) + ' ' +  str(int(position.y)))
-        #print(mat[int(position.x)][int(position.y)])
-        #print(mat[int(position.x)])
         self.maxspeed = mat[int(floor(self.position.x/tl))][int(floor(self.position.y/tl))]
 
         if int(floor(self.position.x/tl)) > 63 or int(floor(self.position.x/tl)) < 0 or int(floor(self.position.y/tl)) < 0 or int(floor(self.position.y/tl)) > 35:
             self.maxspeed = 0
         
-
     # Method to update location
     def update(self, mat, tl):
         # Update velocity
@@ -47,11 +42,14 @@ class Vehicle():
     def applyForce(self, force):
         # We could add mass here if we want A = F / M
         self.acceleration.add(force)
+        
     def setPosition(self, pos):
         self.position = pos
+        
     def display(self):
         # Draw a triangle rotated in the direction of velocity
         theta = self.velocity.heading() + PI / 2
+        print(theta)
         fill(127)
         strokeWeight(1)
         with pushMatrix():
