@@ -23,7 +23,7 @@ def reset():
     food.reset(fPos, velocity_f)
 
 def setup():
-    global vehicle, food, counter, printer, terreno, currentState, path, finalPath, search, selected_option, search_method
+    global vehicle, food, counter, printer, printer2, terreno, currentState, path, finalPath, search, selected_option, search_method
     size(640, 360)
     background(0)
     finalPath = []
@@ -32,6 +32,7 @@ def setup():
     terreno = Terrain(width, height)
     counter = 0
     printer = createFont("Arial Black", 18, True)
+    printer2 = createFont("Arial Black", 11, True)
     velocity_v = PVector(0, 0)
     velocity_f = PVector(0, 0)
     vPos = getNonObstacle(terreno.matrixL, width-10, height-10)
@@ -126,6 +127,9 @@ def draw():
         fill(149, 85, 232)
         text("Comidas comidas: " + str(counter), 10, 20)
         text("Aperte 0 para voltar", 440, 350)
+        textFont(printer2)
+        text("1-Largura, 2-Profundidade, 3-Uniforme, 4-Guloso, 5-A*", 0, 350)
+        
         
 
 def draw_menu():
