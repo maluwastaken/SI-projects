@@ -5,7 +5,6 @@ class Terrain():
         self.scl = 0.1
         self.matrixC = []
         self.matrixL = []
-        self.matrixCoust = []
         self.w = width
         self.h = height
         self.start()
@@ -14,13 +13,10 @@ class Terrain():
         for i in range(0, self.w/self.tileSize):
             aux = []
             aux2 = []
-            aux3 = []
             for j in range(0, self.h/self.tileSize):
                 retUple = self.getColor(i, j)
                 aux.append(retUple[0])
                 aux2.append(retUple[1])
-                aux3.append(retUple[2])
-            self.matrixCoust.append(aux3)
             self.matrixC.append(aux2)
             self.matrixL.append(aux)
 
@@ -52,7 +48,7 @@ class Terrain():
                     continue
                 elif(u == i+1 and v == j-1):
                     continue
-                elif(u == i+i and v == j+1):
+                elif(u == i+1 and v == j+1):
                     continue
                 elif(u == i and v == j):
                     continue
