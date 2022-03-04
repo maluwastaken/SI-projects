@@ -49,6 +49,7 @@ def draw():
     global selected_option
     global search_method
     global search
+    global visited
     
     if(keyPressed and key == '0' and selected_option == True):
         selected_option = False
@@ -76,9 +77,14 @@ def draw():
         if currentState == -1:
             search = search_method(vehicle.getPosition(), food.getPosition(), terreno)
             currentState = 0
+            visited = set()
         elif currentState == 0:
             for pathi in list(search.frontier):
                 fill(0, 255, 255)
+                rect(pathi[1].x * 10, pathi[1].y * 10, 10, 10)
+                visited.add(pathi)
+            for pathi in list(visited):
+                fill(0, 255, 255, 100)
                 rect(pathi[1].x * 10, pathi[1].y * 10, 10, 10)
             ret = search.search()
             if search.frontier == [] or ret == 1:
