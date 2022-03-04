@@ -10,6 +10,11 @@ class Food():
         self.maxspeed = 1.0
         self.maxforce = 0.01
         
+    def reset(self, pos, vel):
+        self.acceleration = PVector(0, 0)
+        self.velocity = vel
+        self.position = pos
+        
     def getPosition(self):
         return self.position
     
@@ -50,8 +55,10 @@ class Food():
 
     def display(self):
         # Draw a triangle rotated in the direction of velocity
+        colorMode(RGB, 255)
         theta = self.velocity.heading()# + PI / 2
-        #fill(12)
+        fill(240, 0 , 100)
+        stroke(0)
         noStroke()
         strokeWeight(1)
         with pushMatrix():
