@@ -122,7 +122,6 @@ class A():
                     self.cost_so_far[next] = new_cost
                     priority = new_cost + self.heuristic(self.endPos[0], self.endPos[1], next[0], next[1])
                     hq.heappush(self.frontier, (priority, next))
-                    #self.frontier.put(next, priority)
                     self.came_from[next] = current
         return 0
     

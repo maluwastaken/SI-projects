@@ -53,6 +53,7 @@ def draw():
     global changeMethod
     
     if(keyPressed and key == '0' and selected_option == True):
+        terreno.start()
         selected_option = False
     if(keyPressed and key != '0'):
         if(key == '1'):

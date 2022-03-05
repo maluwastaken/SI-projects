@@ -10,6 +10,11 @@ class Terrain():
         self.start()
     
     def start(self):
+        seed = long(random(1000))
+        noiseSeed(seed)
+        print('pi')
+        self.matrixC = []
+        self.matrixL = []
         for i in range(0, self.w/self.tileSize):
             aux = []
             aux2 = []
