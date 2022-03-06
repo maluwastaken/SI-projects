@@ -13,7 +13,7 @@ Agente Autônomo com Busca
 
 1. Como Rodar:
 
-* Baixar o Processing 3.5.4 em https://processing.org/download/
+Baixar o Processing 3.5.4 em https://processing.org/download/
 
 Em uma janela do Processing, no canto superior direito, clicar em Java e escolher a opção Add Mode
 
