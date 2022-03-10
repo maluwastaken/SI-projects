@@ -3,20 +3,15 @@
 # http://natureofcode.com
 
 # The "Vehicle" class
-from Dna import DNA
 class Vehicle():
-    def __init__(self, pos, vel=PVector(0,0), dna=None):
+
+    def __init__(self, pos, vel):
         self.acceleration = PVector(0, 0)
         self.velocity = vel
         self.position = pos
         self.r = 4
         self.maxspeed = 5
         self.maxforce = 10
-        if dna == None:
-            self.DNA = DNA()
-        else:
-            self.DNA = dna
-        self.fitness = 0
         
     def getPosition(self):
         return self.position
@@ -30,17 +25,11 @@ class Vehicle():
         position = self.position/tl
         self.maxspeed = mat[int(floor(self.position.x/tl))][int(floor(self.position.y/tl))]
 
-        if int(floor(self.position.x/tl)) >= 63 or int(floor(self.position.x/tl)) < 0 or int(floor(self.position.y/tl)) < 0 or int(floor(self.position.y/tl)) >= 35:
+        if int(floor(self.position.x/tl)) > 63 or int(floor(self.position.x/tl)) < 0 or int(floor(self.position.y/tl)) < 0 or int(floor(self.position.y/tl)) > 35:
             self.maxspeed = 0
-    
-    def calcFitness(self, target):
-        d = self.position.dist(target)
-        self.fitness = float(1/d)        
         
     # Method to update location
-    def update(self, mat, tl, count):        
-        self.applyForce(self.DNA.genes[count])
-    
+    def update(self, mat, tl):
         # Update velocity
         self.checkTerrain(mat, tl)
         self.velocity.add(self.acceleration)
@@ -76,6 +65,4 @@ class Vehicle():
         dir = pos - self.velocity #get direction to apply force to
         self.applyForce(dir)
     
-    def clone(self):
-        return Vehicle(self.position, vel = self.velocity, dna = self.DNA)
     
